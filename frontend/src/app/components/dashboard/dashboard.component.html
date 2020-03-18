@@ -1,0 +1,108 @@
+<div id="collapseExample" [ngbCollapse]="false">
+  <div class="card">
+    <div class="card-body">
+      <ngb-tabset type="tabs" >
+        <ngb-tab >
+          <ng-template ngbTabTitle><b>Add Products</b> </ng-template>
+          <ng-template ngbTabContent>
+            <br>
+              <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
+               
+                <div class="form-group">
+                  <label for="prodname"  ><b>Product Name</b></label>
+                  <input type="text" class="form-control" name="prodname" [(ngModel)]="form.prodname" placeholder="Product Name" #prodname="ngModel" aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                    required />
+                  <div *ngIf="f.submitted && prodname.invalid">
+                    <div *ngIf="prodname.errors.required">product name is required</div>
+                  </div>
+                </div>
+
+
+                    <br>
+                    <div class="form-group">
+                      <label for="proddecription"   ><b>Description</b></label>
+                      <input type="text" class="form-control" name="proddecription" [(ngModel)]="form.proddecription" placeholder="Description" #proddecription="ngModel"
+                        required />
+                      <div *ngIf="f.submitted && proddecription.invalid">
+                        <div *ngIf="proddecription.errors.required">product decription  is required</div>
+                      </div>
+                    </div>
+    
+    
+                        <br>
+
+                        <div class="form-group">
+                          <label for="prodprice"><b>Price</b></label>
+                          <input type="text" class="form-control" name="prodprice" [(ngModel)]="form.prodprice" placeholder="Price" #prodprice="ngModel"
+                            required />
+                          <div *ngIf="f.submitted && prodprice.invalid">
+                            <div *ngIf="prodprice.errors.required">product price is required</div>
+                          </div>
+                        </div>
+        
+        
+                            <br>
+
+                            <div class="form-group">
+                              <label for="category"> <b>Category</b></label>
+                              <input type="text" class="form-control" name="prodname" [(ngModel)]="form.category" placeholder="Category" #category="ngModel"
+                                required />
+                              <div *ngIf="f.submitted && category.invalid">
+                                <div *ngIf="category.errors.required">category is required</div>
+                              </div>
+                            </div>
+            
+            
+                                <br>
+
+                                <div class="form-group">
+                                  <label for="prodquantity"><b>Available Quantity</b></label>
+                                  <input type="text" class="form-control" name="prodquantity" [(ngModel)]="form.prodquantity" placeholder="Quantity" #prodquantity="ngModel"
+                                    required />
+                                  <div *ngIf="f.submitted && prodquantity.invalid">
+                                    <div *ngIf="prodquantity.errors.required">product quantity is required</div>
+                                  </div>
+                                </div>
+                
+                
+                            
+                    
+                    
+                                        <br>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <label for="FormControlQuantity"  ><b>Product Image </b></label>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="file" name="image" accept="image/*" (change)="handleImageFile($event)" formControlName="image" class="form-control-file" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                      </div>
+                     
+                  <br>
+                 
+                  
+                  </div>
+                  <div class="form-group">
+                  <button style="margin-left: 39%;" matTooltip="Click Add Button" class="btn btn-secondary" ><i>Add Product</i></button>
+                </div>
+                </form>
+                <p *ngFor="let alert of alerts">
+                  <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+                </p>
+          
+            
+          
+            
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab>
+          
+         
+        </ngb-tab>
+      </ngb-tabset>
+      
+      <div class="btn-group btn-group-toggle" ngbRadioGroup >
+      
+      </div>
+    </div>
+  </div>
+</div>

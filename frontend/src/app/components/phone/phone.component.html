@@ -1,0 +1,49 @@
+<p *ngFor="let alert of alerts">
+  <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+</p>
+
+<div style="text-align: center;text-size-adjust: 25;color: blue;">
+    <h1 style="color: blue;"><b>Smart Phone Category</b></h1>
+  </div>
+  <div>
+    <a routerLink="/productdisplay" class="btn btn-dark"><i class="fa fa-angle-left"></i> Go back</a><br>
+  </div>
+
+<div class="col-md-38">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3" *ngFor="let product of allProducts | filter:search" style="border: 1px solid #ddd;border-radius: 4px;padding: 15px;width: 350px;">
+          <div class="tileContainer">
+            <div >
+              <img src="data:image/png;base64,{{product.logo}}" alt ="Imgages" style="width:10em;height:8em;">
+            </div>
+            <div style="font-weight:bold; color: lightblue;font-size: 200%;">
+              {{product.prodprice | currency:'R'}}
+            </div>
+            <div >
+            <b>{{product.prodname}}</b>
+              
+            </div>
+            <div>
+        
+              {{ product.proddecription}}
+            </div>
+          
+             <div>
+           
+            </div>
+            <button button *ngIf="authority === 'user'" [disabled]="false" type="button" style="margin-right: 20%;" matTooltip="Click Add to chart Button" class="btn btn-secondary" (click)="OnAddCart(product)">
+              <i class="fa fa-plus" style="font-size:24px"></i> Add to cart  
+              </button>
+          </div>
+         
+          
+
+        </div>
+        <div *ngIf="(allProducts| filter:search).length &lt; 1">
+          <b>Product Not Found </b>
+        </div>
+      </div>
+    </div>
+    </div>
+

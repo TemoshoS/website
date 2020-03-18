@@ -1,0 +1,106 @@
+<div class="container">  
+  
+  <mat-card>  
+  
+  <br><br>  
+    <mat-card-content>  
+      <form [formGroup]="productForm"(ngSubmit)="onFormSubmit(productForm.value)"> 
+        <p *ngFor="let alert of alerts">
+          <ngb-alert style="width: 300px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p> 
+              <table >  
+                <tr>  
+
+                  <td >  
+                    <mat-form-field class="demo-full-width">  
+                      <input formControlName="prodname" class="form-control" matTooltip="Enter product Name" matInput placeholder="product Name">  
+                    </mat-form-field>  
+                    <mat-error>  
+                      <span *ngIf="!productForm.get('prodname').value && productForm.get('prodname').touched"></span>  
+                    </mat-error>  
+                  </td>  
+                
+                  <td >  
+                    <mat-form-field class="demo-full-width">  
+                      <input formControlName="proddecription" class="form-control" matTooltip="Enter product decription" matInput placeholder="Decription">  
+                    </mat-form-field>  
+                    <mat-error>  
+                      <span *ngIf="!productForm.get('proddecription').value && productForm.get('proddecription').touched"></span>  
+                    </mat-error>  
+                  </td>  
+                </tr>  
+                <tr>  
+
+                   
+                  <td >  
+                    <mat-form-field class="demo-full-width">  
+                      <input matTooltip="Enter product price"formControlName="prodprice" class="form-control" matInput placeholder="product price">  
+                    </mat-form-field>  
+                    <mat-error>  
+                      <span *ngIf="!productForm.get('prodprice').value && productForm.get('prodprice').touched"></span>  
+                    </mat-error>  
+                  </td>  
+
+
+                  <td >  
+                    <mat-form-field class="demo-full-width">  
+                      <input matTooltip="Enter category"formControlName="category" class="form-control" matInput placeholder="product category">  
+                    </mat-form-field>  
+                    <mat-error>  
+                      <span *ngIf="!productForm.get('category').value && productForm.get('category').touched"></span>  
+                    </mat-error>  
+                  </td>  
+
+                  <td >  
+                    <mat-form-field class="demo-full-width">  
+                      <input formControlName="prodquantity" class="form-control" matTooltip="Enter quantity" matInput placeholder="product quantity">  
+                    </mat-form-field>  
+                    <mat-error>  
+                      <span *ngIf="!productForm.get('prodquantity').value && productForm.get('prodquantity').touched"></span>  
+                    </mat-error>  
+                  </td>  
+                </tr>  
+                <tr>  
+                  <td></td>  
+                  <td  class="content-center">  
+                    <button type="submit" class="btn btn-info" matTooltip="Click Submit Button"[disabled]="!productForm.valid">update</button>      
+                    <button type="reset" class="btn btn-info" matTooltip="Click Reset Button" (click)="resetForm()">Reset<i class='fas fa-undo-alt'></i></button>  
+                  </td>  
+                  <td>  
+                   
+                  </td>  
+                </tr>  
+              </table>  
+  <br><br>  
+        <table class="table" >  
+            <tr ngclass="btn-primary"> 
+              
+            
+              <th class="tbl2">Product Name</th>  
+              <th class="tbl2">Product Description</th>  
+              <th class="tbl2">Product Price</th>  
+              <th class="tbl2">Category</th>  
+              <th class="tbl2">Quantity</th>  
+              <th class="tbl2">Edit</th>  
+              <th class="tbl2">Delete</th> 
+               
+            </tr>  
+            <tr *ngFor="let products of allProduct| async">
+           
+              <td class="tbl2">{{products.prodname}}</td>  
+              <td class="tbl2">{{products.proddecription}}</td>  
+              <td class="tbl2">{{products.prodprice | currency:'R'}}</td>  
+              <td class="tbl2">{{products.prodtcategory}}</td>    
+              <td class="tbl2">{{products.prodquantity}}</td>  
+              <td class="tbl2">  
+                <button type="button" class="btn btn-info" matTooltip="Click Button"(click)="loadProductToEdit(products.id)">Edit</button>  
+              </td>  
+              <td class="tbl2">  
+                <button type="button" class="btn btn-secondary"matTooltip="Click Delete Button"(click)="deleteProducts(products.id)">Delete<i class='fas fa-trash-alt'></i></button>  
+              </td>
+            </tr> 
+          </table>  
+      </form>  
+    </mat-card-content>  
+  </mat-card>  
+  </div> 

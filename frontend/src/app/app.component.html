@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand"  routerLink='/productdisplay'>
+        <i class='fas fa-home' style='font-size:36px'></i></a>
+        
+
+          <div *ngIf="authority==='user'" class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+            <button class="btn btn-dark dropdown-toggle-split" ngbDropdownToggle> <b>Product Category</b></button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+        
+              <button routerLink='/product' class="dropdown-item"><b>All Products</b></button>
+              <button  routerLink='/laptop' class="dropdown-item">Laptop</button>
+              <button routerLink='/phone' class="dropdown-item">Phone</button>
+              <button routerLink='/tv' class="dropdown-item">Television</button>
+            </div>
+          </div>
+        
+        
+    </div>
+    
+    <ul class="nav navbar-nav" routerLinkActive="active">
+      
+      <li *ngIf="authority === 'user'" class="nav-item">
+        
+          <button type="button" class="btn btn-secondary"><b>User Details</b></button>
+          <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+            <button class="btn btn-light dropdown-toggle-split" ngbDropdownToggle></button>
+            <div class="dropdown-menu" ngbDropdownMenu>
+              <button routerLink='/profile' class="dropdown-item"><b>Profile</b></button>
+              <button class="dropdown-item" (click)="LogOut()"><b>Logout</b></button>
+            </div>
+          </div>
+        
+      </li>
+      <li *ngIf="authority === 'admin'" class="nav-item">
+        <button type="button" class="btn btn-secondary"><b>Admin Details</b></button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-light dropdown-toggle-split" ngbDropdownToggle></button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button routerLink='/profile' class="dropdown-item"><b>Profile</b></button>
+            <button  routerLink='/updateproduct' class="dropdown-item"><b>Update products</b></button>
+            <button routerLink='/dashboard' class="dropdown-item"><b>Add products</b></button>
+            <button class="dropdown-item" (click)="LogOut()"><b>Logout</b></button>
+          </div>
+        </div>
+      </li>
+      <li *ngIf="authority === 'customer'" class="nav-item">
+        <button type="button" class="btn btn-secondary"><b>Customer Details</b></button>
+        <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+          <button class="btn btn-light dropdown-toggle-split" ngbDropdownToggle></button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button routerLink='/profile' class="dropdown-item"><b>Profile</b></button>
+            <button class="dropdown-item" (click)="LogOut()"><b>Logout</b></button>
+          </div>
+        </div>
+      </li>
+      <li *ngIf="!authority" class="nav-item">
+        <a class="nav-link navbar-text"  routerLink="/login" ><b>Login </b></a>
+      </li>
+      <li  *ngIf="authority==='user'" class="nav-item">
+        <button type="button"  routerLink="/cart" class="btn btn-secondary" >
+          <i class='fas fa-shopping-cart'></i> {{cartProductCount}}
+          <span class="sr-only">unread messages</span>
+        </button>
+      
+      </li>
+    </ul>
+  </div>
+</nav>
+<!-- main app container -->
+<div class="jumbotron"  style="background-color:white;">
+  <div class="container">
+      
+              
+   <router-outlet></router-outlet>
+          
+</div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0" >
+  
+
+<div class="w3-container w3-content w3-padding-64" style="max-width:1000px" id="contact">
+  <h2 class="w3-wide w3-center">CONTACT US</h2>
+  <div class="w3-row w3-padding-32">
+    <div class="w3-col m6 w3-large w3-margin-bottom">
+      <i class="fa fa-map-marker" style="width:180px"> South Africa, RSA</i><br>
+      <i class="fa fa-phone" style="width:180px"> Phone: +27721371977</i><br>
+      <i class="fa fa-envelope" style="width:280px">  Email: Temoshomaduane@gmail.com</i><br>
+      <i class="fa fa-link" style="width: 190px;"> Link: <a href="https://github.com/TemoshoS/">Temosho github <i class='fab fa-git'></i></a></i>
+    </div>
+  </div>
+</div>
+
+
+
+</div>

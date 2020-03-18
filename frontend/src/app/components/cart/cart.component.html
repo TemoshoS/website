@@ -1,0 +1,198 @@
+
+<ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="static-1">
+  <ngb-panel id="static-1"  >
+    <ng-template ngbPanelTitle>
+      <span><b style="color: silver">Items Details</b></span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      
+
+
+
+<div>
+  <a routerLink="/productdisplay" class="btn btn-info"><i class="fa fa-angle-left"></i> Continue Shopping</a><br>
+  <div class="card">
+  <div class="card-body">
+    
+<h1 style="color: rgba(45, 85, 79, 0.548)">Items in your cart<span style="margin-left: 5%;margin-right: 22%;color: rgba(45, 85, 79, 0.548)">
+        Total value is: {{allTotal|| "0"}}</span>
+
+</h1>
+        
+        <table class="table table-bordered table-responsive table-hover">
+          <thead >
+          <tr>
+            <th>Image</th>
+            <th>Name </th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove And Add </th>
+            <th>Total For Items</th>
+            <th>Delete </th>
+          </tr>
+          </thead>
+          <tr *ngFor="let prod of productAddedTocart;let q = index">
+            <td><img src="data:image/png;base64,{{prod.logo}}" width="170px;" height="140px;"/></td>
+            <td class="text-center">{{prod.prodname}}</td>
+            <td>{{prod.prodprice | currency:'R'  }}</td>
+            <td>{{prod.prodquantity}}</td>
+            <td>
+              <div class="form-inline">
+              <button type="button" (click)="onRemoveQuantity(prod)" class="btn btn-info">-</button> 
+              <input type="text"  [ngModel] ="prod.prodquantity" (ngModelChange) ="prod.prodquantity=$event" class="form-control form-inline" id="count">
+              <button type="button" (click)="onAddQuantity(prod)" class="btn btn-info">+</button>
+              </div>
+            </td>
+            <td>{{prod.prodprice * prod.prodquantity| currency:'R'}}</td>
+            <td> <button type="button" class="btn btn-info" (click)="[deleteProduct(prod.id),reload()]">Delete</button></td>
+          </tr>
+        </table>
+        <div>
+          <button class="btn btn-secondary" style="text-align : bold;" (click)="acc.toggle('static-2')">Checkout</button>
+        </div>
+        
+    </div>
+  </div>
+</div>
+</ng-template>
+</ngb-panel>
+
+
+<!--orders-->
+<ngb-panel id="static-2">
+  <ng-template ngbPanelTitle>
+    <span><b style="color: silver">Order Details </b></span>
+  </ng-template>
+  <ng-template ngbPanelContent>
+    <form [formGroup]="deliveryForm">
+      <div class="form-group">
+        
+        <div class="col-md-12">
+          <h5 style="color: silver" >Username:</h5>  <input  placeholder="Enter Username" formControlName="username" class="form-control"   >
+          <span class="text-muted" *ngIf="deliveryForm.get('username').hasError('required') && deliveryForm.get('username').touched"><p style="color: rgb(252, 4, 4)">Username is required</p></span>
+        </div>
+
+
+        <div  class="col-md-12">
+            <h5 style="color: silver" >Delivery Address:</h5> 
+            <textarea id="textarea" name="textarea" formControlName="deliveryaddress" placeholder="Enter Delivery Address" class="form-control"  rows="3" cols="15"></textarea>
+            <span class="text-muted" *ngIf="deliveryForm.get('deliveryaddress').hasError('required') && deliveryForm.get('deliveryaddress').touched"><p style="color: rgb(252, 4, 4)">Address is required</p></span>
+          </div>
+
+
+          <div class="col-md-12">
+              <h5 style="color: silver" >Phone:</h5>  <input  placeholder="Enter Cellphone" formControlName="phone" class="form-control"   >
+              <span class="text-muted" *ngIf="deliveryForm.get('phone').hasError('required') && deliveryForm.get('phone').touched"><p style="color: rgb(252, 4, 4)">Mobile Number is required</p></span>
+              <span class="text-muted" *ngIf="deliveryForm.get('phone').hasError('minlength') && deliveryForm.get('phone').touched"><p style="color: rgb(252, 4, 4)">Mobile number must be 10 digits</p></span>
+              <span class="text-muted" *ngIf="deliveryForm.get('phone').hasError('pattern') && deliveryForm.get('phone').touched"><p style="color: rgb(252, 4, 4)">This input field allows only numerical values</p></span>
+              <span class="text-muted" *ngIf="deliveryForm.get('phone').hasError('maxlength') && deliveryForm.get('phone').touched"><p style="color: rgb(252, 4, 4)">Mobile number must be 10 digits</p></span>
+            </div>
+
+
+            <div class="col-md-12">
+                <h5 style="color: silver" >Email:</h5>  
+                <input formControlName="email" placeholder="Enter Email Address" class="form-control"  class="form-control"  required  >
+                    <div *ngIf="email.invalid && !email.pristine">
+                  <p *ngIf="email.errors.email" style="color: red">Valid email is required.</p>
+                </div>
+              <span class="text-muted" *ngIf="deliveryForm.get('email').hasError('required') && deliveryForm.get('email').touched"><p style="color: rgb(252, 4, 4)">Email is required</p></span>
+              </div>
+
+                <div class="col-md-12">
+                    <h5 style="color: silver" >Total Amount To Pay:</h5>  <input formControlName="amount" class="form-control"  readonly >
+                 
+                  </div>
+      </div>
+      <button type="submit" style="margin-left: 40%;" [disabled]="!deliveryForm.valid" (click)="acc.toggle('static-3')" class="btn btn-secondary" ><b>Proceed</b></button>
+    </form>
+</ng-template>
+</ngb-panel>
+
+
+
+
+<!--order confirmation-->
+<ngb-panel id="static-3"  >
+  <ng-template ngbPanelTitle>
+    <span><b style="color: silver">Confirm Your Order</b></span>
+  </ng-template>
+  <ng-template ngbPanelContent>
+   <table>
+     <tr class="col-md-12">
+        <td class="col-md-6"  ><h2 style="color: peachpuff">Item Details</h2></td>          
+     </tr>
+     <tr class="col-md-12">
+       <td class="col-md-6">
+         <!-- -- Item details Table -->
+         <table class="table table-bordered  table-hover">
+            <thead class="thead-light">
+            <tr>
+              <th>Name </th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total For Item</th>
+            </tr>
+            </thead>
+            <ng-container *ngFor="let prod of productAddedTocart;let q = index">
+            <tr  *ngIf="prod.prodquantity > 0">
+              <td class="text-center">{{prod.prodname}}</td>
+              <td>{{prod.prodprice | currency:'R'}}</td>
+              <td>{{prod.prodquantity}}</td>
+              <td>{{prod.prodprice * prod.prodquantity| currency:'R' }}</td>
+              <td> <button type="button" class="btn-outline-secondary" (click)="itemsInCart()"> </button> </td>
+            </tr>
+            </ng-container>
+          </table>
+
+        </td>
+      </tr>
+          <tr class="col-md-12">
+           <td class="col-md-6"><h2 style="color: peachpuff">Delivery Details</h2></td>          
+         </tr>
+         <tr class="col-md-12">
+          <td class="col-md-6">
+         <table class="table table-bordered  table-hover">
+          <thead class="thead-light">
+          <tr>
+            <th>Name</th>
+            <th>Delivery Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Total Price</th>
+           
+          </tr>
+          </thead>
+          <tr>
+            <td>{{deliveryForm.value.username}}</td>
+            <td>{{deliveryForm.value.deliveryaddress}}</td>
+            <td>{{deliveryForm.value.phone}}</td>
+            <td>{{deliveryForm.value.email}}</td>
+            <td>{{deliveryForm.value.amount | currency:'R'}}</td>
+          
+          </tr>
+        </table>
+
+       </td>
+       <td class="col-md-6">
+          <!-- --Delivery Table -->
+         
+                   </td>
+     </tr>
+     <tr>
+       <td  class="text-center" >
+          <button type="button" class="btn btn-outline-secondary" (click)="ConfirmOrder();"><b>Confirm Order</b></button>
+       </td>
+     </tr>
+   </table>
+   <p *ngFor="let alert of alerts">
+    <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+      
+     
+  </ng-template>
+</ngb-panel>
+
+
+
+
+</ngb-accordion>
